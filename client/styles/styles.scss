@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(192, 183, 138);
+}
+
+// login page
+
+.login-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.beatbooks-logo{
+    width: 70%;
+}
+
+.spotify-icon {
+    width: 10%;
+    margin-right: 5%;
+}
