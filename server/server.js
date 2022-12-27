@@ -10,7 +10,7 @@ app.use(cors());
 // parses incoming request bodies with a JSON payload (unnecessary with axios)
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/spotify', spotifyRouter);
 

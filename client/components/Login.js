@@ -1,20 +1,23 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-const { CLIENT_ID } = require('../../.env');
+
+const { client_id } = require('../../.env');
+
+let PORT;
+process.env.NODE_ENV === 'development' ? PORT = 8080 : PORT = 3000;
 
 const Login = () => {
-  const SPOTIFY_ENDPOINT = 'https://accounts.spotify.com/authorize';
-  const REDIRECT_URI = 'http://localhost:8080';
-  const SCOPE = 'streaming user-read-private user-read-email';
-  
-  const LOGIN_URI = `${SPOTIFY_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}&response_type=code&show_dialogue=true`;
+  const code_endpoint = 'https://accounts.spotify.com/authorize';
+  const redirect_uri = `http://localhost:${PORT}/api/spotify/callback`;
+  const scope = 'streaming user-read-private user-read-email';
+  const login_uri = `${code_endpoint}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=code&show_dialogue=true`;
 
   return (
     <div>
       <div className="login-center">
         <img className="beatbooks-logo" src="https://hmp.me/d0i8"></img>
         <div>
-          <a href={LOGIN_URI} style={{ textDecoration: "none" }}>
+          <a href={login_uri} style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
               sx={{
