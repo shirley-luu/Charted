@@ -5,11 +5,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const spotifyRouter = require('./routers/spotifyRouter');
 
-// allows for cross origin resource sharing to make requests to different domains
 app.use(cors());
-// parses incoming request bodies with a JSON payload (unnecessary with axios)
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/spotify', spotifyRouter);

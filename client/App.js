@@ -4,21 +4,14 @@ import Login from './components/Login';
 import Search from './components/Search';
 import './styles/styles.scss';
 
-const code = new URLSearchParams(window.location.search).get('code');
-
 const App = () => {
   return (
     <div>
-      {/* {code ? <Search code={code} /> : <Login />} */}
       <React.Fragment>
         <BrowserRouter>
           <Routes>
-            {/* {!code ?
             <Route path="/" element={<Login />} />
-            :
-            <Route path="/search" element={<Search code={code} />} />} */}
-            <Route path="/" element={<Login />} />
-            <Route path="/search" element={<Search code={code} />} />
+            <Route path="/search" element={<Search />} />
           </Routes>
         </BrowserRouter>
       </React.Fragment>

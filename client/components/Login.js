@@ -8,7 +8,7 @@ process.env.NODE_ENV === 'development' ? PORT = 8080 : PORT = 3000;
 
 const Login = () => {
   const code_endpoint = 'https://accounts.spotify.com/authorize';
-  const redirect_uri = `http://localhost:${PORT}/api/spotify/callback`;
+  const redirect_uri = `http://localhost:${PORT}/api/spotify/token`;
   const scope = 'streaming user-read-private user-read-email';
   const login_uri = `${code_endpoint}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=code&show_dialogue=true`;
 
