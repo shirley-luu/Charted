@@ -24,7 +24,8 @@ spotifyController.token = async (req, res, next) => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-        const queryParams = qs.stringify(response.data);
+        const expiryTime = Date.now() + (response.data.expires_in * 1000);
+        const queryParams = qs.stringify(response.data) + `&expiry_time=${expiryTime}`;
         res.locals.auth = queryParams;
         return next();
     }
