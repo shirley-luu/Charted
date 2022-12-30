@@ -25,7 +25,7 @@ spotifyController.token = async (req, res, next) => {
             }
         })
         const queryParams = qs.stringify(response.data);
-        res.locals.params = queryParams;
+        res.locals.auth = queryParams;
         return next();
     }
     catch(err) {
@@ -33,6 +33,33 @@ spotifyController.token = async (req, res, next) => {
             log: `Error in spotifyController.token: ${err}`,
             status: 500,
             message: {err: 'Error occured while retrieving access token'},
+          });
+    }
+}
+
+spotifyController.refresh = async (req, res, next) => {
+    const { refresh_token } = req.query;
+    const token_endpoint = 'https://accounts.spotify.com/api/token';
+    const auth_token = new Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+    const data = qs.stringify({
+        grant_type: 'refresh_token',
+        refresh_token: refresh_token,
+    })
+    try {
+        const response = await axios.post(token_endpoint, data, {
+            headers: {
+                'Authorization': `Basic ${auth_token}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        res.locals.auth = response.data;
+        return next();
+    }
+    catch(err) {
+        return next({
+            log: `Error in spotifyController.refresh: ${err}`,
+            status: 500,
+            message: {err: 'Error occured while retrieving refresh token'},
           });
     }
 }
