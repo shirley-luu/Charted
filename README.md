@@ -1,4 +1,4 @@
-### BeatBooks
+### Charted
 
 Get Music Recommendations For Books
 

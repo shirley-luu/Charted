@@ -1,15 +1,15 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const Search = ({ code }) => {
-  const [accessToken, setAccessToken] = useState();
-  const [refreshToken, setRefreshToken] = useState();
-  const [expiryTime, setExpiryTime] = useState();
+  const [accessToken, setAccessToken] = React.useState();
+  const [expiryTime, setExpiryTime] = React.useState();
+  const [refreshToken, setRefreshToken] = React.useState();
 
   // NTH: save in session for security
   // use effect renders twice due to strict mode
-  useEffect(() => {
+  React.useEffect(() => {
     const search = new URLSearchParams(window.location.search);
     setAccessToken(search.get('access_token'));
     setRefreshToken(search.get('refresh_token'));
@@ -18,7 +18,7 @@ const Search = ({ code }) => {
     const fetchRefreshToken = async () => {
       const response = await axios.get(`/api/spotify/refresh?refresh_token=${refreshToken}`);
       setAccessToken(response.data.access_token);
-      // set expiry time for refresh token
+      setExpiryTime(response.data.expiry_time);
     }
 
     if (refreshToken && Date.now() >= expiryTime) fetchRefreshToken();

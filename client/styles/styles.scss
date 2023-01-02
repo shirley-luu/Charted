@@ -1,24 +1,34 @@
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(192, 183, 138);
+    background-color: rgb(136, 156, 125);
 }
 
-// login page
+// login componnent
 
-.login-center {
+.center-login-div {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
-.beatbooks-logo{
-    width: 70%;
+.center-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.spotify-icon {
-    width: 10%;
-    margin-right: 5%;
+.charted-logo {
+    width: 50%;
+}
+
+.bottom-right-div {
+    position: absolute;
+    bottom: -8%;
+    right: 1.5%;
 }

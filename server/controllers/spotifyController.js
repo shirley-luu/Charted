@@ -53,7 +53,9 @@ spotifyController.refresh = async (req, res, next) => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
+        const expiryTime = Date.now() + (response.data.expires_in * 1000);
         res.locals.auth = response.data;
+        res.locals.auth.expiry_time = expiryTime;
         return next();
     }
     catch(err) {
