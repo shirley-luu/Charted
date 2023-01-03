@@ -1,10 +1,8 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
+import InfoIcon from '@mui/icons-material/Info';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import InfoIcon from '@mui/icons-material/Info';
-import { CenterFocusStrong } from "@mui/icons-material";
-import { fontSize } from "@mui/system";
 
 const { client_id } = require('../../.env');
 
@@ -14,8 +12,8 @@ process.env.NODE_ENV === 'development' ? PORT = 8080 : PORT = 3000;
 const Login = () => {
   const [anchorEl, setAnchorEl] = React.useState();
 
-  const handlePopoverOpen = (e) => {
-    setAnchorEl(e.currentTarget);
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handlePopoverClose = () => {
@@ -31,7 +29,9 @@ const Login = () => {
 
   return (
     <div className="center-login-div">
-      <div className="center-div"><img className="charted-logo" src="https://hmp.me/d0vl"></img></div>
+      <div className="center-div">
+        <img className="login-charted-logo" src="https://hmp.me/d0vl" alt="Login page Charted logo"></img>
+      </div>
       <div>
         <Button
           variant="contained"

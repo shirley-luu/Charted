@@ -2,12 +2,14 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 const spotifyRouter = require('./routers/spotifyRouter');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use('/api/spotify', spotifyRouter);
 

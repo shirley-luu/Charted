@@ -39,12 +39,12 @@ spotifyController.token = async (req, res, next) => {
 }
 
 spotifyController.refresh = async (req, res, next) => {
-    const { refresh_token } = req.query;
+    const { refreshToken } = req.body;
     const token_endpoint = 'https://accounts.spotify.com/api/token';
     const auth_token = new Buffer.from(`${client_id}:${client_secret}`).toString('base64');
     const data = qs.stringify({
         grant_type: 'refresh_token',
-        refresh_token: refresh_token,
+        refresh_token: refreshToken,
     })
     try {
         const response = await axios.post(token_endpoint, data, {
@@ -63,6 +63,28 @@ spotifyController.refresh = async (req, res, next) => {
             log: `Error in spotifyController.refresh: ${err}`,
             status: 500,
             message: {err: 'Error occured while retrieving refresh token'},
+          });
+    }
+}
+
+spotifyController.user = async (req, res, next) => {
+    const { accessToken } = req.body;
+    const api_endpoint = 'https://api.spotify.com/v1/me';
+    try {
+        const response = await axios.get(api_endpoint, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        res.locals.info = response.data;
+        return next();
+    }
+    catch(err) {
+        return next({
+            log: `Error in spotifyController.user: ${err}`,
+            status: 500,
+            message: {err: 'Error occured while retrieving user info'},
           });
     }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './components/Login';
-import Search from './components/Search';
+import Main from './components/Main';
 import './styles/styles.scss';
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/search" element={<Search />} />
+            <Route path= "/main" element={<Main />} />
           </Routes>
         </BrowserRouter>
       </React.Fragment>
