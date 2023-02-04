@@ -9,7 +9,7 @@ cookieController.getTokenCookie = (req, res, next) => {
 
 cookieController.setTokenCookie = (req, res, next) => {
     const { access_token } = res.locals.authData;
-    const options = { httpOnly: true, maxAge: 212400 };
+    const options = { httpOnly: true, maxAge: 3540 };
     res.cookie('token', access_token, options);
     return next();
 };
