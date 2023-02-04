@@ -1,6 +1,6 @@
 ### Charted
 
-Get Music Recommendations For Books
+Spotify Recommendations and Analysis
 
 ## Technologies
 * [React](https://reactjs.org/)

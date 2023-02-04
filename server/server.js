@@ -1,17 +1,32 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const mongoose = require("mongoose");
 const app = express();
-const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 3000;
+
 const spotifyRouter = require('./routers/spotifyRouter');
 
+const { mongo_uri } = require('../.env');
+
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 app.use('/api/spotify', spotifyRouter);
+
+mongoose
+  .set('strictQuery', true)
+  .connect(mongo_uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "Charted"
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.log(err));
 
 // serve files on production mode
 if (process.env.NODE_ENV !== 'development') {
@@ -19,14 +34,12 @@ if (process.env.NODE_ENV !== 'development') {
   app.get('/', (req, res) => {
     return res.status(200).sendFile(path.resolve('./build/index.html'));
   });
-}
+};
 
-// catch all handler for all unknown routes
-app.use((req, res) => {
-  res.status(404).send('404');
-});
+// unknown route handler
+app.use((req, res) => res.status(404).send('404'));
 
-// global error handler catches all errors
+// global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: "Express error handler caught unknown middleware error",

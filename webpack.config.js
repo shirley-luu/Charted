@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { webpack } = require('webpack');
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -28,7 +27,12 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
   },
-  plugins: [new HtmlWebpackPlugin({ template: './client/index.html' })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+      favicon: "./client/assets/favicon.ico"
+    })
+  ],
   module: {
     rules: [
       {

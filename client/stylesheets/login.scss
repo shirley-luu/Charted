@@ -1,9 +1,3 @@
-body {
-    background-color: rgb(136, 156, 125);
-}
-
-// login componnent
-
 .center-login-div {
     display: flex;
     flex-direction: column;
@@ -31,11 +25,4 @@ body {
     position: absolute;
     bottom: -8%;
     right: 1.5%;
-}
-
-// navbar componnent
-
-.navbar-charted-logo {
-    width: 50px;
-    margin-right: 10px;
 }
