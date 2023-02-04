@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Login from './components/Login.jsx';
 import Main from './components/Main.jsx';
@@ -12,8 +13,8 @@ const App = () => {
       <React.Fragment>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path= "/main" element={<Main />} />
+            <Route path='/' element={<Login />} />
+            <Route path= '/main' element={<Main />} />
           </Routes>
         </BrowserRouter>
       </React.Fragment>
