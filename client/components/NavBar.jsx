@@ -50,7 +50,7 @@ const NavBar = ({ userInfo }) => {
       >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img className="navbar-charted-logo-expand" src={logo} alt="Navbar Charted logo"></img>
+          <a href="/"><img className="navbar-charted-logo-expand" src={logo} alt="Navbar Charted logo"></img></a>
           <Typography
             variant="h6"
             noWrap
@@ -98,14 +98,21 @@ const NavBar = ({ userInfo }) => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              <a href='/' style={{ color: 'black', textDecoration: 'none' }}>
+                <MenuItem key='Home' onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Home</Typography>
                 </MenuItem>
+              </a>
+              {pages.map((page) => (
+                <a href={page.toLowerCase()} style={{ color: 'black', textDecoration: 'none' }}>
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                </a>
               ))}
             </Menu>
           </Box>
-          <img className="navbar-charted-logo-condense" src={logo} alt="Navbar Charted logo"></img>
+          <a href='/'><img className="navbar-charted-logo-condense" src={logo} alt="Navbar Charted logo"></img></a>
           <Typography
             variant="h5"
             noWrap
@@ -125,6 +132,14 @@ const NavBar = ({ userInfo }) => {
             CHARTED
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Button
+              key='Home'
+              href='/'
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Home
+            </Button>
             {pages.map((page) => (
               <Button
                 key={page}
