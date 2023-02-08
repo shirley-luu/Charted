@@ -1,0 +1,21 @@
+@media (max-width: 900px) {
+    .navbar-charted-logo-expand {
+        display: none;
+    }
+    .navbar-charted-logo-condense {
+        display: flex;
+        width: 30px;
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 900px) {
+    .navbar-charted-logo-expand {
+        display: flex;
+        width: 30px;
+        margin-right: 20px;
+    }
+    .navbar-charted-logo-condense {
+        display: none;
+    }
+}

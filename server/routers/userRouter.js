@@ -40,7 +40,6 @@ userRouter.post('/refresh',
     spotifyController.useRefreshToken,
     cookieController.setTokenCookie,
     (req, res) => {
-        console.log(res.locals.accessToken);
         return res.status(200).send(res.locals.accessToken);
     }
 );

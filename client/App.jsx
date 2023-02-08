@@ -3,13 +3,17 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
-import Login from './components/Login.jsx';
-import Main from './components/Main.jsx';
+import Box from '@mui/material/Box';
 
+import Login from './components/Login.jsx';
+import NavBar from './components/NavBar.jsx';
+import Home from './components/Home.jsx';
+import Wrapped from './components/Wrapped.jsx';
+import Discover from './components/Discover.jsx';
 import './stylesheets/app.scss';
 
 const App = () => {
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     const findSession = async () => {
@@ -32,10 +36,14 @@ const App = () => {
       </>
     ) : (
       <>
+        <NavBar userInfo={userInfo} />
+        <Box sx={{ paddingTop: 8 }} ></Box>
         <React.Fragment>
           <BrowserRouter>
             <Routes>
-              <Route path= '/' element={<Main userInfo={userInfo} />} />
+              <Route path= '/' element={<Home userInfo={userInfo} />} />
+              <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} />} />
+              <Route path= '/discover' element={<Discover userInfo={userInfo} />} />
             </Routes>
           </BrowserRouter>
         </React.Fragment>

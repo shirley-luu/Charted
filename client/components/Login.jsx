@@ -6,6 +6,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 
+import charted from '../assets/charted.png';
 import '../stylesheets/login.scss';
 
 const { client_id } = require('../../.env');
@@ -34,8 +35,8 @@ const Login = () => {
   return (
     <>
       <div className="center-login-div">
-        <div className="center-div">
-          <img className="login-charted-logo" src="https://hmp.me/d0vl" alt="Login page Charted logo"></img>
+        <div className="center-logo-div">
+          <img className="login-charted-logo" src={charted} alt="Login page Charted logo"></img>
         </div>
         <div>
           <Button

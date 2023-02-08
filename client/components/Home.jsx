@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Main = ({userInfo}) => {
+const Home = ({userInfo}) => {
   const [accessToken, setAccessToken] = useState('');
   const [refreshNeeded, setRefreshNeeded] = useState(false);
 
@@ -26,13 +26,9 @@ const Main = ({userInfo}) => {
   
   return (
     <>
-      <h1>you logged in</h1>
-      <h2>username: {userInfo.username}</h2>
-      <h2>email: {userInfo.email}</h2>
-      <h4>refreshToken: {userInfo.refreshToken}</h4>
-      <h4>accessToken: {accessToken}</h4>
+      <h1>Home</h1>
     </>
   );
 };
 
-export default Main;
+export default Home;
