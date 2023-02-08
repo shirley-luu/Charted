@@ -4,8 +4,9 @@ const sessionController = {};
 
 sessionController.findSession = async (req, res, next) => {
     try {
-        const session = await Session.findOne({ cookieId: res.locals.userId });
-        if (!session) res.status(200).send(false);
+        const id = res.locals.userId;
+        const session = await Session.findOne({ cookieId: id });
+        if (!session) return res.status(200).send(false);
         return next();
     }
     catch(err) {
@@ -19,7 +20,8 @@ sessionController.findSession = async (req, res, next) => {
 
 sessionController.startSession = async (req, res, next) => {
     try {
-        await Session.create({ cookieId: res.locals.userId });
+        const id = res.locals.userId;
+        await Session.create({ cookieId: id });
         return next();
     }
     catch(err) {
@@ -33,7 +35,8 @@ sessionController.startSession = async (req, res, next) => {
 
 sessionController.deleteSession = async (req, res, next) => {
     try {
-        await Session.deleteOne({ cookieId: res.locals.userId });
+        const id = res.locals.userId;
+        await Session.deleteOne({ cookieId: id });
         return next();
     }
     catch(err) {

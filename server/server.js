@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 const app = express();
 
-const spotifyRouter = require('./routers/spotifyRouter');
 const userRouter = require('./routers/userRouter');
+const spotifyRouter = require('./routers/spotifyRouter');
 
 const { mongo_uri } = require('../.env');
 
@@ -17,8 +17,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/spotify', spotifyRouter);
 app.use('/api/user', userRouter);
+app.use('/api/spotify', spotifyRouter);
 
 mongoose
   .set('strictQuery', true)

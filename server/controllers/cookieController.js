@@ -2,28 +2,27 @@ const cookieController = {};
 
 cookieController.getTokenCookie = (req, res, next) => {
     const token = req.cookies.token;
-    if (!token) res.status(200).send(false);
-    else res.locals.token = token;
+    if (!token) return res.status(200).send(false);
+    else res.locals.accessToken = token;
     return next();
 };
 
 cookieController.setTokenCookie = (req, res, next) => {
     const { access_token } = res.locals.authData;
-    const options = { httpOnly: true, maxAge: 3540 };
-    res.cookie('token', access_token, options);
+    res.cookie('token', access_token, { httpOnly: true, maxAge: 3540000 });
+    res.locals.accessToken = access_token;
     return next();
 };
 
 cookieController.getSSIDCookie = (req, res, next) => {
     const id = req.cookies.ssid;
-    if (!user) res.status(200).send(false);
+    if (!id) return res.status(200).send(false);
     else res.locals.userId = id;
     return next();
 };
 
 cookieController.setSSIDCookie = (req, res, next) => {
-    const options = { httpOnly: true };
-    res.cookie('ssid', res.locals.userId, options);
+    res.cookie('ssid', res.locals.userId, { httpOnly: true });
     return next();
 };
 

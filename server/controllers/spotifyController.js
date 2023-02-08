@@ -11,7 +11,7 @@ process.env.NODE_ENV === 'development' ? PORT = 8080 : PORT = 3000;
 spotifyController.getAccessToken = async (req, res, next) => {
     const { code } = req.query;
     const token_endpoint = 'https://accounts.spotify.com/api/token';
-    const redirect_uri = `http://localhost:${PORT}/api/spotify/token`;
+    const redirect_uri = `http://localhost:${PORT}/api/user/access`;
     const auth_token = new Buffer.from(`${client_id}:${client_secret}`).toString('base64');
     const data = qs.stringify({
         grant_type: 'authorization_code',
@@ -33,6 +33,33 @@ spotifyController.getAccessToken = async (req, res, next) => {
             log: `Error in spotifyController.getAccessToken: ${err}`,
             status: 500,
             message: {err: 'Error occured while retrieving access token'},
+          });
+    }
+};
+
+spotifyController.useRefreshToken = async (req, res, next) => {
+    const { refreshToken } = req.body;
+    const token_endpoint = 'https://accounts.spotify.com/api/token';
+    const auth_token = new Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+    const data = qs.stringify({
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken,
+    })
+    try {
+        const response = await axios.post(token_endpoint, data, {
+            headers: {
+                'Authorization': `Basic ${auth_token}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        res.locals.authData = response.data;
+        return next();
+    }
+    catch(err) {
+        return next({
+            log: `Error in spotifyController.useRefreshToken: ${err}`,
+            status: 500,
+            message: {err: 'Error occured while retrieving refresh token'},
           });
     }
 };

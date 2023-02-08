@@ -12,15 +12,23 @@ const options = {
 };
 
 userController.findUser = async (req, res, next) => {
-    const { display_name, email } = res.locals.userInfo;
     try {
-        const response = await User.findOne({ username: display_name, email: email });
-        if (!response) res.locals.userExists = false;
-        else {
-            res.locals.userExists = true;
-            res.locals.userId = response._id.toString();
+        if (res.locals.userInfo) {
+            const { email } = res.locals.userInfo;
+            const response = await User.findOne({ email: email });
+            if (!response) res.locals.userExists = false;
+            else {
+                res.locals.userExists = true;
+                res.locals.userId = response._id.toString();
+            }
+            return next();
         }
-        return next();
+        else {
+            const response = await User.findOne({ _id: res.locals.userId });
+            if (!response) res.status(200).send(false);
+            else res.locals.userInfo = response;
+            return next();
+        }
     }
     catch(err) {
         return next({
@@ -57,12 +65,12 @@ userController.createUser = async (req, res, next) => {
 userController.updateUserRefreshToken = async (req, res, next) => {
     if (!res.locals.userExists) return next();
     else {
-        const { display_name, email } = res.locals.userInfo;
+        const { email } = res.locals.userInfo;
         const { refresh_token } = res.locals.authData;
         const current = new Date();
         const dateTime = current.toLocaleDateString("en-US", options);
         try {
-            await User.updateOne({ username: display_name, email: email }, { $set: { refreshToken: refresh_token, lastLoggedIn: dateTime } });
+            await User.updateOne({ email: email }, { $set: { refreshToken: refresh_token, lastLoggedIn: dateTime } });
             return next();
         }
         catch(err) {
