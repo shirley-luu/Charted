@@ -13,7 +13,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
 import logo from '../assets/logo.png';
 import '../stylesheets/navbar.scss';
@@ -42,12 +41,7 @@ const NavBar = ({ userInfo }) => {
 
   return (
     <>
-      <AppBar
-        position="fixed"
-        sx={{
-          backgroundColor: "black"
-        }}
-      >
+      <AppBar position="fixed" sx={{ backgroundColor: "rgb(145, 171, 158)" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <a href="/"><img className="navbar-charted-logo-expand" src={logo} alt="Navbar Charted logo"></img></a>
@@ -59,7 +53,7 @@ const NavBar = ({ userInfo }) => {
             sx={{
               mr: 10,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'Helvetica',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
@@ -122,7 +116,7 @@ const NavBar = ({ userInfo }) => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: 'Helvetica',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',

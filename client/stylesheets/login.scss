@@ -1,14 +1,28 @@
+@media (max-width: 900px) {
+    .login-charted-logo {
+        width: 50%;
+        min-width: 275px;
+    }
+}
+
+@media (min-width: 900px) {
+    .login-charted-logo {
+        width: 50%;
+    }
+}
+
 .center-login-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 0;
-    bottom: 10%;
-    left: 0;
-    right: 0;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
     margin: auto;
+    background-color: rgb(145, 172, 154);
 }
 
 .center-logo-div {
@@ -17,12 +31,8 @@
     align-items: center;
 }
 
-.login-charted-logo {
-    width: 50%;
-}
-
 .bottom-right-div {
     position: absolute;
-    bottom: -8%;
+    bottom: 1.5%;
     right: 1.5%;
 }

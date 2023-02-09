@@ -47,6 +47,7 @@ const Login = () => {
               color: "rgb(0, 0, 0)",
               fontWeight: "bold",
               minWidth: "200px",
+              marginBottom: "100px",
               width: "225px",
               "&:hover": {
                 backgroundColor: "rgb(255, 255, 255)",
@@ -73,7 +74,7 @@ const Login = () => {
             }}
             PaperProps={{
               style: {
-                backgroundColor: "rgb(167, 193, 154)",
+                backgroundColor: "rgb(145, 171, 158)",
                 color: "rgb(255, 255, 255)",
                 borderRadius: 15
               }
