@@ -86,4 +86,26 @@ spotifyController.getUserInfo = async (req, res, next) => {
     }
 };
 
+// spotifyController.getTopArtists = async (req, res, next) => {
+//     const { accessToken } = req.body;
+//     const api_endpoint = 'https://api.spotify.com/v1/me/top/artists';
+//     try {
+//         const response = await axios.get(api_endpoint, {
+//             headers: {
+//                 'Authorization': `Bearer ${accessToken}`,
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         res.locals.topArtists = response.data;
+//         return next();
+//     }
+//     catch(err) {
+//         return next({
+//             log: `Error in spotifyController.getTopArtists: ${err}`,
+//             status: 500,
+//             message: {err: 'Error occured while retrieving top artists'},
+//           });
+//     }
+// };
+
 module.exports = spotifyController;

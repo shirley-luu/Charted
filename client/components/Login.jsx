@@ -16,7 +16,7 @@ process.env.NODE_ENV === 'development' ? PORT = 8080 : PORT = 3000;
 
 const code_endpoint = 'https://accounts.spotify.com/authorize';
 const redirect_uri = `http://localhost:${PORT}/api/user/access`;
-const scope = 'streaming user-read-private user-read-email';
+const scope = 'user-read-playback-state app-remote-control user-modify-playback-state playlist-read-private user-follow-modify playlist-read-collaborative user-follow-read user-read-currently-playing user-read-playback-position user-library-modify playlist-modify-private playlist-modify-public user-read-email user-top-read streaming user-read-recently-played user-read-private user-library-read';
 const login_uri = `${code_endpoint}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=code&show_dialogue=true`;
 
 const Login = () => {
