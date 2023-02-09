@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -18,7 +18,6 @@ import logo from '../assets/logo.png';
 import '../stylesheets/navbar.scss';
 
 const pages = ['Wrapped', 'Discover'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const NavBar = ({ userInfo }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -168,11 +167,16 @@ const NavBar = ({ userInfo }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              <a href='https://www.spotify.com/us/account/overview/' target="_blank" rel="noopener noreferrer" style={{ color: 'black', textDecoration: 'none' }}>
+                <MenuItem key="Spotify" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Spotify</Typography>
                 </MenuItem>
-              ))}
+              </a>
+              <a href='/api/user/logout' style={{ color: 'black', textDecoration: 'none' }}>
+                <MenuItem key="Logout" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              </a>
             </Menu>
           </Box>
         </Toolbar>

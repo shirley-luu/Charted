@@ -44,4 +44,12 @@ userRouter.post('/refresh',
     }
 );
 
+userRouter.get('/logout',
+    cookieController.deleteSSIDCookie,
+    sessionController.deleteSession,
+    (req, res) => {
+        return res.status(200).redirect('/');
+    }
+)
+
 module.exports = userRouter;

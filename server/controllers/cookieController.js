@@ -27,7 +27,11 @@ cookieController.setSSIDCookie = (req, res, next) => {
 };
 
 cookieController.deleteSSIDCookie = (req, res, next) => {
-    if (req.cookies.ssid) res.clearCookie('ssid');
+    const id = req.cookies.ssid;
+    if (id) {
+        res.locals.userId = id;
+        res.clearCookie('ssid');
+    }
     return next();
 };
 
