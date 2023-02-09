@@ -97,7 +97,7 @@ const NavBar = ({ userInfo }) => {
                 </MenuItem>
               </a>
               {pages.map((page) => (
-                <a href={page.toLowerCase()} style={{ color: 'black', textDecoration: 'none' }}>
+                <a key={page} href={page.toLowerCase()} style={{ color: 'black', textDecoration: 'none' }}>
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>

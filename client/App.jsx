@@ -14,6 +14,7 @@ import './stylesheets/app.scss';
 
 const App = () => {
   const [userInfo, setUserInfo] = useState(null);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     const findSession = async () => {
@@ -21,33 +22,36 @@ const App = () => {
       if (response.data) setUserInfo(response.data);
     }
     findSession();
+    setTimeout(() => setLoad(true), 50);
   }, []);
 
   return (
-    !userInfo ? (
-      <>
-        <React.Fragment>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<Login />} />
-            </Routes>
-          </BrowserRouter>
-        </React.Fragment>
-      </>
-    ) : (
-      <>
-        <NavBar userInfo={userInfo} />
-        <Box sx={{ paddingTop: 8 }} ></Box>
-        <React.Fragment>
-          <BrowserRouter>
-            <Routes>
-              <Route path= '/' element={<Home userInfo={userInfo} />} />
-              <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} />} />
-              <Route path= '/discover' element={<Discover userInfo={userInfo} />} />
-            </Routes>
-          </BrowserRouter>
-        </React.Fragment>
-      </>
+    !load ? (<></>) : (
+      !userInfo ? (
+        <>
+          <React.Fragment>
+            <BrowserRouter>
+              <Routes>
+                <Route path='/' element={<Login />} />
+              </Routes>
+            </BrowserRouter>
+          </React.Fragment>
+        </>
+      ) : (
+        <>
+          <NavBar userInfo={userInfo} />
+          <Box sx={{ paddingTop: 8 }} ></Box>
+          <React.Fragment>
+            <BrowserRouter>
+              <Routes>
+                <Route path= '/' element={<Home userInfo={userInfo} />} />
+                <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} />} />
+                <Route path= '/discover' element={<Discover userInfo={userInfo} />} />
+              </Routes>
+            </BrowserRouter>
+          </React.Fragment>
+        </>
+      )
     )
   );
 };
