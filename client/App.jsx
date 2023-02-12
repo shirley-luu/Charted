@@ -13,10 +13,26 @@ import './stylesheets/app.scss';
 const App = () => {
   const [load, setLoad] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [accessToken, setAccessToken] = useState('');
 
   const findSession = async () => {
     const response = await axios('api/user/session');
-    if (response.data) setUserInfo(response.data);
+    if (response.data) {
+      setUserInfo(response.data);
+      findToken();
+    }
+  }
+
+  const findToken = async () => {
+    const response = await axios('api/user/token');
+    if (response.data) setAccessToken(response.data);
+    else refreshToken();
+  }
+
+  const refreshToken = async () => {
+    const refreshToken = userInfo.refreshToken;
+    const response = await axios.post('api/user/refresh', { refreshToken });
+    setAccessToken(response.data);
   }
 
   useEffect(() => {
@@ -42,9 +58,9 @@ const App = () => {
           <React.Fragment>
             <BrowserRouter>
               <Routes>
-                <Route path= '/' element={<Home userInfo={userInfo} />} />
-                <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} />} />
-                <Route path= '/discover' element={<Discover userInfo={userInfo} />} />
+                <Route path= '/' element={<Home userInfo={userInfo} accessToken={accessToken} />} />
+                <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} accessToken={accessToken} />} />
+                <Route path= '/discover' element={<Discover userInfo={userInfo} accessToken={accessToken} />} />
               </Routes>
             </BrowserRouter>
           </React.Fragment>
