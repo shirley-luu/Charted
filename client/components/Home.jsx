@@ -24,6 +24,8 @@ const Home = ({userInfo}) => {
     if (refreshNeeded) refreshToken();
   }, [refreshNeeded]);
   
+  console.log(accessToken);
+  
   return (
     <>
       <h1>Home</h1>

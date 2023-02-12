@@ -23,20 +23,10 @@ const NavBar = ({ userInfo }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const handleOpenNavMenu = (e) => {
-    setAnchorElNav(e.currentTarget);
-  };
-  const handleOpenUserMenu = (e) => {
-    setAnchorElUser(e.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const handleOpenNavMenu = e => setAnchorElNav(e.currentTarget);
+  const handleCloseNavMenu = () => setAnchorElNav(null);
+  const handleOpenUserMenu = e => setAnchorElUser(e.currentTarget);
+  const handleCloseUserMenu = () => setAnchorElUser(null);
 
   return (
     <>
@@ -61,7 +51,6 @@ const NavBar = ({ userInfo }) => {
           >
             CHARTED
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -144,7 +133,6 @@ const NavBar = ({ userInfo }) => {
               </Button>
             ))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={userInfo.username}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

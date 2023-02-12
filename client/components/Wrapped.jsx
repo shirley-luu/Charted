@@ -2,9 +2,11 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Wrapped = ({userInfo}) => {
+const Wrapped = ({ userInfo }) => {
   const [accessToken, setAccessToken] = useState('');
   const [refreshNeeded, setRefreshNeeded] = useState(false);
+  const [topArtists, setTopArtists] = useState([]);
+  const [topTracks, setTopTracks] = useState([]);
 
   useEffect(() => {
     const findToken = async () => {
@@ -24,12 +26,23 @@ const Wrapped = ({userInfo}) => {
     if (refreshNeeded) refreshToken();
   }, [refreshNeeded]);
 
-  // useEffect(() => {
-  //   const getTopArtists = async () => {
-  //     const response = await axios.post('api/spotify/artists', { accessToken });
-  //   }
-  //   getTopArtists();
-  // }, [accessToken]);
+  useEffect(() => {
+    const getTopArtists = async () => {
+      const response = await axios.post('api/spotify/artists', { accessToken });
+      setTopArtists(response.data);
+    }
+
+    const getTopTracks = async () => {
+      const response = await axios.post('api/spotify/tracks', { accessToken });
+      setTopTracks(response.data);
+    }
+
+    getTopArtists();
+    getTopTracks();
+  }, [accessToken]);
+
+  console.log('topArtists: ', topArtists);
+  console.log('topTracks: ', topTracks);
 
   return (
     <>

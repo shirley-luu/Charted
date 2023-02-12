@@ -13,8 +13,8 @@ import Discover from './components/Discover.jsx';
 import './stylesheets/app.scss';
 
 const App = () => {
-  const [userInfo, setUserInfo] = useState(null);
   const [load, setLoad] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     const findSession = async () => {
@@ -22,7 +22,7 @@ const App = () => {
       if (response.data) setUserInfo(response.data);
     }
     findSession();
-    setTimeout(() => setLoad(true), 50);
+    setTimeout(() => setLoad(true), 80);
   }, []);
 
   return (
