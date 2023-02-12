@@ -30,7 +30,6 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
-// serve files on production mode
 if (process.env.NODE_ENV !== 'development') {
   app.use('/build', express.static(path.resolve('./build')));
   app.get('/', (req, res) => {
@@ -38,10 +37,8 @@ if (process.env.NODE_ENV !== 'development') {
   });
 };
 
-// unknown route handler
 app.use((req, res) => res.status(404).send('404'));
 
-// global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: "Express error handler caught unknown middleware error",

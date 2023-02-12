@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
-import Box from '@mui/material/Box';
-
 import Login from './components/Login.jsx';
 import NavBar from './components/NavBar.jsx';
 import Home from './components/Home.jsx';
@@ -16,11 +14,12 @@ const App = () => {
   const [load, setLoad] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
+  const findSession = async () => {
+    const response = await axios('api/user/session');
+    if (response.data) setUserInfo(response.data);
+  }
+
   useEffect(() => {
-    const findSession = async () => {
-      const response = await axios('api/user/session');
-      if (response.data) setUserInfo(response.data);
-    }
     findSession();
     setTimeout(() => setLoad(true), 80);
   }, []);
@@ -40,7 +39,6 @@ const App = () => {
       ) : (
         <>
           <NavBar userInfo={userInfo} />
-          <Box sx={{ paddingTop: 8 }} ></Box>
           <React.Fragment>
             <BrowserRouter>
               <Routes>

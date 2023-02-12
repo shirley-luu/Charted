@@ -22,13 +22,8 @@ const login_uri = `${code_endpoint}?client_id=${client_id}&redirect_uri=${redire
 const Login = () => {
   const [anchorEl, setAnchorEl] = useState();
 
-  const handlePopoverOpen = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl();
-  };
+  const handlePopoverOpen = e => setAnchorEl(e.currentTarget);
+  const handlePopoverClose = () => setAnchorEl();
 
   const open = Boolean(anchorEl);
 
