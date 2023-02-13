@@ -17,10 +17,7 @@ const App = () => {
 
   const findSession = async () => {
     const response = await axios('api/user/session');
-    if (response.data) {
-      setUserInfo(response.data);
-      findToken();
-    }
+    if (response.data) setUserInfo(response.data);
   }
 
   const findToken = async () => {
@@ -40,6 +37,10 @@ const App = () => {
     setTimeout(() => setLoad(true), 80);
   }, []);
 
+  useEffect(() => {
+    if (userInfo) findToken();
+  }, [userInfo]);
+  
   return (
     !load ? (<></>) : (
       !userInfo ? (
