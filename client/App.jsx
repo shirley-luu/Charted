@@ -8,6 +8,7 @@ import NavBar from './components/NavBar.jsx';
 import Home from './components/Home.jsx';
 import Wrapped from './components/Wrapped.jsx';
 import Discover from './components/Discover.jsx';
+import Beatbooks from './components/Beatbooks.jsx';
 import './stylesheets/app.scss';
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
                 <Route path= '/' element={<Home userInfo={userInfo} accessToken={accessToken} />} />
                 <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} accessToken={accessToken} />} />
                 <Route path= '/discover' element={<Discover userInfo={userInfo} accessToken={accessToken} />} />
+                <Route path= '/beatbooks' element={<Beatbooks userInfo={userInfo} accessToken={accessToken} />} />
               </Routes>
             </BrowserRouter>
           </React.Fragment>

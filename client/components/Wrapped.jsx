@@ -13,7 +13,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import '../stylesheets/wrapped.scss';
 
 const Wrapped = ({ userInfo, accessToken }) => {
-  const [currentChip, setCurrentChip] = useState('artists');
+  const [currentChip, setCurrentChip] = useState('tracks');
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
 
@@ -42,6 +42,23 @@ const Wrapped = ({ userInfo, accessToken }) => {
   return (
     <>
       <Stack className='wrapped-chip-stack' direction="row">
+        {currentChip === 'tracks' ? (
+          <Chip
+          sx={{ backgroundColor: 'rgb(145, 172, 154)', marginLeft: '10px' }}
+          label="Top Tracks"
+          variant="filled"
+          onClick={() => handleChip("tracks")}
+          icon={<AudiotrackIcon color="action" />}
+          />
+          ) : (
+          <Chip sx={{ color: 'black', borderColor: 'black', marginLeft: '10px' }}
+          label="Top Tracks"
+          variant="outlined"
+          onClick={() => handleChip("tracks")}
+          icon={<AudiotrackIcon color="action" />}
+          />
+          )
+        }
         {currentChip === 'artists' ? (
           <Chip
           sx={{ backgroundColor: 'rgb(145, 172, 154)', marginLeft: '10px' }}
@@ -60,25 +77,8 @@ const Wrapped = ({ userInfo, accessToken }) => {
           />
           )
         }
-        {currentChip === 'tracks' ? (
-          <Chip
-          sx={{ backgroundColor: 'rgb(145, 172, 154)', marginLeft: '10px' }}
-          label="Top Tracks"
-          variant="filled"
-          onClick={() => handleChip("tracks")}
-          icon={<AudiotrackIcon color="action" />}
-          />
-          ) : (
-          <Chip sx={{ color: 'black', borderColor: 'black', marginLeft: '10px' }}
-          label="Top Tracks"
-          variant="outlined"
-          onClick={() => handleChip("tracks")}
-          icon={<AudiotrackIcon color="action" />}
-          />
-          )
-        }
       </Stack>
-      <ImageList sx={{ width: '100%', height: '90%' }} cols={4}>
+      <ImageList sx={{ width: '100%', height: '90%', marginBottom: 'px' }} cols={4}>
         {currentChip === 'artists' ? (
           topArtists.map(artist => (
             <ImageListItem key={artist.name}>

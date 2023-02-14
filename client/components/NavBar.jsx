@@ -17,7 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import logo from '../assets/logo.png';
 import '../stylesheets/navbar.scss';
 
-const pages = ['Wrapped', 'Discover'];
+const pages = ['Wrapped', 'Discover', 'Beatbooks'];
 
 const NavBar = ({ userInfo }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
