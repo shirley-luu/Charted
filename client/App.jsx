@@ -9,10 +9,11 @@ import Home from './components/Home.jsx';
 import Wrapped from './components/Wrapped.jsx';
 import Discover from './components/Discover.jsx';
 import Beatbooks from './components/Beatbooks.jsx';
+import cat from './assets/cat.gif'
 import './stylesheets/app.scss';
 
 const App = () => {
-  const [load, setLoad] = useState(false);
+  const [loading, setLoad] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [accessToken, setAccessToken] = useState('');
 
@@ -35,7 +36,7 @@ const App = () => {
 
   useEffect(() => {
     findSession();
-    setTimeout(() => setLoad(true), 80);
+    setTimeout(() => setLoad(false), 1000);
   }, []);
 
   useEffect(() => {
@@ -43,32 +44,37 @@ const App = () => {
   }, [userInfo]);
   
   return (
-    !load ? (<></>) : (
-      !userInfo ? (
-        <>
-          <React.Fragment>
-            <BrowserRouter>
-              <Routes>
-                <Route path='/' element={<Login />} />
-              </Routes>
-            </BrowserRouter>
-          </React.Fragment>
-        </>
-      ) : (
-        <>
-          <NavBar userInfo={userInfo} />
-          <React.Fragment>
-            <BrowserRouter>
-              <Routes>
-                <Route path= '/' element={<Home userInfo={userInfo} accessToken={accessToken} />} />
-                <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} accessToken={accessToken} />} />
-                <Route path= '/discover' element={<Discover userInfo={userInfo} accessToken={accessToken} />} />
-                <Route path= '/beatbooks' element={<Beatbooks userInfo={userInfo} accessToken={accessToken} />} />
-              </Routes>
-            </BrowserRouter>
-          </React.Fragment>
-        </>
-      )
+    loading ? (
+      <>
+        <div className='center-loading-div'>
+          <img className='loading-cat' src={cat}></img>
+        </div>
+      </>
+    ) :
+    !userInfo ? (
+      <>
+        <React.Fragment>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Login />} />
+            </Routes>
+          </BrowserRouter>
+        </React.Fragment>
+      </>
+    ) : (
+      <>
+        <NavBar userInfo={userInfo} />
+        <React.Fragment>
+          <BrowserRouter>
+            <Routes>
+              <Route path= '/' element={<Home userInfo={userInfo} accessToken={accessToken} />} />
+              <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} accessToken={accessToken} />} />
+              <Route path= '/discover' element={<Discover userInfo={userInfo} accessToken={accessToken} />} />
+              <Route path= '/beatbooks' element={<Beatbooks userInfo={userInfo} accessToken={accessToken} />} />
+            </Routes>
+          </BrowserRouter>
+        </React.Fragment>
+      </>
     )
   );
 };

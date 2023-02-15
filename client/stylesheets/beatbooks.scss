@@ -1,0 +1,26 @@
+.beatbooks-form-div {
+    display: flex;
+    // flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+}
+
+.beatbooks-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	background-color: rgb(140, 140, 140);
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 20%;
+    padding-right: 20%;
+	opacity: 0.8;
+    border-radius: 10px;
+	box-shadow: rgb(90, 90, 90) 2px 2px 0px 0px;
+}

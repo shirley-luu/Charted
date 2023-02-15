@@ -4,6 +4,10 @@ Spotify Recommendations and Analysis
 
 ## Technologies
 * [React](https://reactjs.org/)
+* [React Router](https://reactrouter.com/en/main)
+* [Spotify API](https://developer.spotify.com/)
+* [Material UI](https://mui.com/)
+* [Sass](https://sass-lang.com/)
 * [Node](https://nodejs.org/en/)
 * [Express](https://expressjs.com/)
 * [Webpack](https://webpack.js.org/)

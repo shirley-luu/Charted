@@ -59,6 +59,10 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.gif$/,
+        use: 'file-loader'
       }
     ]
   }
