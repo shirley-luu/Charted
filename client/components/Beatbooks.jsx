@@ -11,29 +11,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import '../stylesheets/beatbooks.scss';
 
 const Beatbooks = ({ userInfo, accessToken }) => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [bookInfo, setBookInfo] = useState({});
-  const [bookCover, setBookCover] = useState('');
+  const [titleInput, setTitleInput] = useState('');
+  const [authorInput, setAuthorInput] = useState('');
 
   const navigate = useNavigate();
 
   const findBook = async () => {
-    const response = await axios.post('/api/book/info', { title, author });
-    if (response.data) {
-      setBookInfo(response.data);
-      findBookCover();
-    }
+    const response = await axios.post('/api/book/info', { title: titleInput, author: authorInput });
+    if (response.data) findBookCover(response.data.title, response.data.authors);
   }
 
-  const findBookCover = async (isbn) => {
-    const response = await axios.post('/api/book/cover', { title, author });
-    if (response.data) setBookCover(response.data);
-    navigate('/beatbooks/recommendations', { state: { title, author } });
+  const findBookCover = async (foundTitle, foundAuthors) => {
+    const response = await axios.post('/api/book/cover', { title: foundTitle, author: foundAuthors[0] });
+    navigate('/beatbooks/recommendations', { state: { title: foundTitle, authors: foundAuthors, cover: response.data } });
   }
 
-  const handleTitleInput = e => setTitle(e.target.value);
-  const handleAuthorInput = e => setAuthor(e.target.value);
+  const handleTitleInput = e => setTitleInput(e.target.value);
+  const handleAuthorInput = e => setAuthorInput(e.target.value);
   const handleRecommendations = () => findBook();
 
   return (
@@ -54,7 +48,7 @@ const Beatbooks = ({ userInfo, accessToken }) => {
             onChange={handleAuthorInput}
             color="neutral"
             disabled={false}
-            placeholder="Author"
+            placeholder="Author(s)"
             size="md"
             variant="solid"
             />

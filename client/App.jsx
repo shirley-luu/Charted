@@ -14,7 +14,7 @@ import cat from './assets/cat.gif'
 import './stylesheets/app.scss';
 
 const App = () => {
-  const [loading, setLoad] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [accessToken, setAccessToken] = useState('');
 
@@ -37,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     findSession();
-    setTimeout(() => setLoad(false), 1000);
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   useEffect(() => {
