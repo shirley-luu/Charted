@@ -1,4 +1,3 @@
-const { getAutocompleteUtilityClass } = require('@mui/material');
 const axios = require('axios');
 const qs = require('qs');
 

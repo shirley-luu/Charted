@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import Stack from '@mui/material/Stack';
 import Input from '@mui/joy/Input';
+import Button from '@mui/material/Button';
+import SearchIcon from '@mui/icons-material/Search';
 
 import '../stylesheets/beatbooks.scss';
 
@@ -14,8 +16,13 @@ const Beatbooks = ({ userInfo, accessToken }) => {
   const handleTitleInput = e => setTitle(e.target.value);
   const handleAuthorInput = e => setAuthor(e.target.value);
 
-  console.log(title);
-  console.log(author);
+  const handleRecommendations = async () => {
+    const response = await axios.post('/api/book/find', { title, author });
+    console.log(response.data);
+  }
+
+  console.log('title: ', title);
+  console.log('author: ', author);
 
   return (
     <>
@@ -39,6 +46,14 @@ const Beatbooks = ({ userInfo, accessToken }) => {
             size="md"
             variant="solid"
             />
+            <Button
+            sx={{ color: 'white', borderColor: 'white', marginTop: '50px', ':hover': { color: 'rgb(169, 195, 182)', borderColor: 'rgb(169, 195, 182)' } }}
+            onClick={handleRecommendations}
+            variant="outlined"
+            startIcon={<SearchIcon />}
+            >
+              Find Recommendations
+            </Button>
         </Stack>
       </div>
     </>

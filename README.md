@@ -6,6 +6,7 @@ Spotify Recommendations and Analysis
 * [React](https://reactjs.org/)
 * [React Router](https://reactrouter.com/en/main)
 * [Spotify API](https://developer.spotify.com/)
+* [Open Library API](https://openlibrary.org/developers)
 * [Material UI](https://mui.com/)
 * [Sass](https://sass-lang.com/)
 * [Node](https://nodejs.org/en/)

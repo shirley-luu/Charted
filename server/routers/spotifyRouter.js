@@ -3,14 +3,14 @@ const spotifyRouter = express.Router();
 
 const spotifyController = require('../controllers/spotifyController');
 
-spotifyRouter.post('/artists',
+spotifyRouter.post('/top/artists',
     spotifyController.getTopArtists,
     (req, res) => {
         return res.status(201).send(res.locals.topArtists);
     }
 );
 
-spotifyRouter.post('/tracks',
+spotifyRouter.post('/top/tracks',
     spotifyController.getTopTracks,
     (req, res) => {
         return res.status(201).send(res.locals.topTracks);

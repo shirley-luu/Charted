@@ -17,15 +17,15 @@ const Wrapped = ({ userInfo, accessToken }) => {
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
 
-  const handleChip = chip => setCurrentChip(chip);
+  const handleChipChange = chip => setCurrentChip(chip);
 
   const getTopArtists = async () => {
-    const response = await axios.post('api/spotify/artists', { accessToken });
+    const response = await axios.post('api/spotify/top/artists', { accessToken });
     setTopArtists(response.data);
   }
 
   const getTopTracks = async () => {
-    const response = await axios.post('api/spotify/tracks', { accessToken });
+    const response = await axios.post('api/spotify/top/tracks', { accessToken });
     setTopTracks(response.data);
   }
 
@@ -36,9 +36,6 @@ const Wrapped = ({ userInfo, accessToken }) => {
     }
   }, [accessToken]);
 
-  console.log('topArtists: ', topArtists);
-  console.log('topTracks: ', topTracks);
-
   return (
     <>
       <Stack className='wrapped-chip-stack' direction="row">
@@ -47,14 +44,14 @@ const Wrapped = ({ userInfo, accessToken }) => {
           sx={{ backgroundColor: 'rgb(145, 172, 154)', marginLeft: '10px' }}
           label="Top Tracks"
           variant="filled"
-          onClick={() => handleChip("tracks")}
+          onClick={() => handleChipChange("tracks")}
           icon={<AudiotrackIcon color="action" />}
           />
           ) : (
           <Chip sx={{ color: 'black', borderColor: 'black', marginLeft: '10px' }}
           label="Top Tracks"
           variant="outlined"
-          onClick={() => handleChip("tracks")}
+          onClick={() => handleChipChange("tracks")}
           icon={<AudiotrackIcon color="action" />}
           />
           )
@@ -64,7 +61,7 @@ const Wrapped = ({ userInfo, accessToken }) => {
           sx={{ backgroundColor: 'rgb(145, 172, 154)', marginLeft: '10px' }}
           label="Top Artists"
           variant="filled"
-          onClick={() => handleChip("artists")}
+          onClick={() => handleChipChange("artists")}
           icon={<PersonIcon color="action" />}
           />
           ) : (
@@ -72,7 +69,7 @@ const Wrapped = ({ userInfo, accessToken }) => {
           sx={{ color: 'black', borderColor: 'black', marginLeft: '10px' }}
           label="Top Artists"
           variant="outlined"
-          onClick={() => handleChip("artists")}
+          onClick={() => handleChipChange("artists")}
           icon={<PersonIcon color="action" />}
           />
           )

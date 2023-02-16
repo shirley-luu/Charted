@@ -7,6 +7,7 @@ const app = express();
 
 const userRouter = require('./routers/userRouter');
 const spotifyRouter = require('./routers/spotifyRouter');
+const bookRouter = require('./routers/bookRouter');
 
 const { mongo_uri } = require('../.env');
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/user', userRouter);
 app.use('/api/spotify', spotifyRouter);
+app.use('/api/book', bookRouter);
 
 mongoose
   .set('strictQuery', true)
