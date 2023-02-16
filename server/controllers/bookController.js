@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const { google_books_api_key } = require('../../.env');
+
 const bookController = {};
 
 bookController.findBook = async (req, res, next) => {
@@ -9,22 +11,12 @@ bookController.findBook = async (req, res, next) => {
         const response = await axios(book_endpoint);
         const book = response.data.docs[0];
         const subjects = new Set(book.subject_key.map(subject => subject.split('_')[0]));
-        // let isbn;
-        // for (let i = 0; i < book.isbn.length; i++) {
-        //     const current = book.isbn[i];
-        //     const isbn_endpoint = `https://openlibrary.org/isbn/${current}.json`;
-        //     const response = await axios(isbn_endpoint);
-        //     // if (response.data.language === 'eng') return isbn = current;
-        //     if  (response.data.language) console.log(response.data.language);
-        // }
         const bookInfo = {
             title: book.title,
             authors: book.author_name,
             subjects: [...subjects],
-            isbn: book.isbn[0]
         }
         res.locals.bookInfo = bookInfo;
-        console.log(bookInfo);
         return next();
     }
     catch(err) {
@@ -37,14 +29,25 @@ bookController.findBook = async (req, res, next) => {
 };
 
 bookController.findBookCover = async (req, res, next) => {
-    const { isbn } = req.body;
-    const cover_endpoint = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&jscmd=data&format=json`;
+    const { title, author } = req.body;
+    const cover_endpoint = `https://www.googleapis.com/books/v1/volumes?q=intitle:${title}+inauthor:${author}&key=${google_books_api_key}`;
     try {
         const response = await axios(cover_endpoint);
-        console.log(response.data);
-        // const imageURL = response.data[`ISBN:${isbn}`].cover.large;
-        // if (imageURL) res.locals.bookCover = imageURL;
-        // console.log(imageURL);
+        const books = response.data.items;
+        let latest = 2000;
+        let imageURL;
+        for (let i = books.length - 1; i > books.length - 7; i--) {
+            if (books[i].volumeInfo.imageLinks.thumbnail && books[i].volumeInfo.language === 'en') {
+                const date = books[i].volumeInfo.publishedDate;
+                const year = date.split('-')[0];
+                const int = parseInt(year);
+                if (int > latest) {
+                    latest = int
+                    imageURL = books[i].volumeInfo.imageLinks.thumbnail;
+                }
+            }
+        }
+        res.locals.bookCover = imageURL;
         return next();
     }
     catch(err) {

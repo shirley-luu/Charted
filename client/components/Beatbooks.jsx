@@ -24,13 +24,15 @@ const Beatbooks = ({ userInfo, accessToken }) => {
   }
 
   const findBookCover = async (isbn) => {
-    const response = await axios.post('/api/book/cover', { isbn });
+    const response = await axios.post('/api/book/cover', { title, author });
     if (response.data) setBookCover(response.data);
   }
 
   const handleTitleInput = e => setTitle(e.target.value);
   const handleAuthorInput = e => setAuthor(e.target.value);
   const handleRecommendations = () => findBook();
+
+  console.log(bookCover);
 
   return (
     <>
