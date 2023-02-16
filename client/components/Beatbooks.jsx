@@ -12,17 +12,25 @@ import '../stylesheets/beatbooks.scss';
 const Beatbooks = ({ userInfo, accessToken }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [bookInfo, setBookInfo] = useState({});
+  const [bookCover, setBookCover] = useState('');
+
+  const findBook = async () => {
+    const response = await axios.post('/api/book/info', { title, author });
+    if (response.data) {
+      setBookInfo(response.data);
+      findBookCover(response.data.isbn);
+    }
+  }
+
+  const findBookCover = async (isbn) => {
+    const response = await axios.post('/api/book/cover', { isbn });
+    if (response.data) setBookCover(response.data);
+  }
 
   const handleTitleInput = e => setTitle(e.target.value);
   const handleAuthorInput = e => setAuthor(e.target.value);
-
-  const handleRecommendations = async () => {
-    const response = await axios.post('/api/book/find', { title, author });
-    console.log(response.data);
-  }
-
-  console.log('title: ', title);
-  console.log('author: ', author);
+  const handleRecommendations = () => findBook();
 
   return (
     <>
