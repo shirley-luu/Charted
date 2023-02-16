@@ -9,6 +9,7 @@ import Home from './components/Home.jsx';
 import Wrapped from './components/Wrapped.jsx';
 import Discover from './components/Discover.jsx';
 import Beatbooks from './components/Beatbooks.jsx';
+import BeatbooksRecommendations from './components/BeatbooksRecommendations.jsx';
 import cat from './assets/cat.gif'
 import './stylesheets/app.scss';
 
@@ -71,6 +72,7 @@ const App = () => {
               <Route path= '/wrapped' element={<Wrapped userInfo={userInfo} accessToken={accessToken} />} />
               <Route path= '/discover' element={<Discover userInfo={userInfo} accessToken={accessToken} />} />
               <Route path= '/beatbooks' element={<Beatbooks userInfo={userInfo} accessToken={accessToken} />} />
+              <Route path= '/beatbooks/recommendations' element={<BeatbooksRecommendations userInfo={userInfo} accessToken={accessToken} />} />
             </Routes>
           </BrowserRouter>
         </React.Fragment>

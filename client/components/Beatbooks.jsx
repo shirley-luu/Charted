@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Stack from '@mui/material/Stack';
@@ -15,24 +16,25 @@ const Beatbooks = ({ userInfo, accessToken }) => {
   const [bookInfo, setBookInfo] = useState({});
   const [bookCover, setBookCover] = useState('');
 
+  const navigate = useNavigate();
+
   const findBook = async () => {
     const response = await axios.post('/api/book/info', { title, author });
     if (response.data) {
       setBookInfo(response.data);
-      findBookCover(response.data.isbn);
+      findBookCover();
     }
   }
 
   const findBookCover = async (isbn) => {
     const response = await axios.post('/api/book/cover', { title, author });
     if (response.data) setBookCover(response.data);
+    navigate('/beatbooks/recommendations', { state: { title, author } });
   }
 
   const handleTitleInput = e => setTitle(e.target.value);
   const handleAuthorInput = e => setAuthor(e.target.value);
   const handleRecommendations = () => findBook();
-
-  console.log(bookCover);
 
   return (
     <>
