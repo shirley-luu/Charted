@@ -3,9 +3,9 @@ import { useLocation } from 'react-router-dom';
 
 import { UserInfo } from '../../types/interfaces';
 import unavailable from '../assets/unavailable.png';
-import '../stylesheets/beatbooksrecommendations.scss';
+import '../stylesheets/beatbooksrecs.scss';
 
-const BeatbooksRecommendations: FC<{userInfo: UserInfo, accessToken: string}> = props => {
+const BeatbooksRecs: FC<{userInfo: UserInfo, accessToken: string}> = props => {
   const { userInfo, accessToken } = props;
 
   const { state } = useLocation();
@@ -20,4 +20,4 @@ const BeatbooksRecommendations: FC<{userInfo: UserInfo, accessToken: string}> = 
   );
 };
 
-export default BeatbooksRecommendations;
+export default BeatbooksRecs;
