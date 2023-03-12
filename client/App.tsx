@@ -1,39 +1,39 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
-import Login from './components/Login.jsx';
-import NavBar from './components/NavBar.jsx';
-import Home from './components/Home.jsx';
-import Wrapped from './components/Wrapped.jsx';
-import Discover from './components/Discover.jsx';
-import Beatbooks from './components/Beatbooks.jsx';
-import BeatbooksRecommendations from './components/BeatbooksRecommendations.jsx';
-import cat from './assets/cat.gif'
+import { UserInfo } from '../types/interfaces';
+import Login from './components/Login';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import Wrapped from './components/Wrapped';
+import Discover from './components/Discover';
+import Beatbooks from './components/Beatbooks';
+import BeatbooksRecommendations from './components/BeatbooksRecommendations';
+import cat from './assets/cat.gif';
 import './stylesheets/app.scss';
 
-const App = () => {
+const App: FC = () => {
   const [loading, setLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [accessToken, setAccessToken] = useState('');
 
   const findSession = async () => {
     const response = await axios('api/user/session');
     if (response.data) setUserInfo(response.data);
-  }
+  };
 
   const findToken = async () => {
     const response = await axios('api/user/token');
     if (response.data) setAccessToken(response.data);
     else refreshToken();
-  }
+  };
 
   const refreshToken = async () => {
-    const refreshToken = userInfo.refreshToken;
+    const refreshToken = userInfo?.refreshToken;
     const response = await axios.post('api/user/refresh', { refreshToken });
     setAccessToken(response.data);
-  }
+  };
 
   useEffect(() => {
     findSession();

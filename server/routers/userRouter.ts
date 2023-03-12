@@ -1,10 +1,11 @@
-const express = require('express');
-const userRouter = express.Router();
+import express, { Request, Response } from 'express';
 
-const spotifyController = require('../controllers/spotifyController');
-const userController = require('../controllers/userController');
-const cookieController = require('../controllers/cookieController');
-const sessionController = require('../controllers/sessionController');
+import spotifyController from '../controllers/spotifyController';
+import userController from '../controllers/userController';
+import cookieController from '../controllers/cookieController';
+import sessionController from '../controllers/sessionController';
+
+const userRouter = express.Router();
 
 userRouter.get('/access',
     spotifyController.getAccessToken,
@@ -15,7 +16,7 @@ userRouter.get('/access',
     cookieController.setTokenCookie,
     cookieController.setSSIDCookie,
     sessionController.startSession,
-    (req, res) => {
+    (req: Request, res: Response) => {
         return res.status(200).redirect('/');
     }
 );
@@ -24,14 +25,14 @@ userRouter.get('/session',
     cookieController.getSSIDCookie,
     sessionController.findSession,
     userController.findUser,
-    (req, res) => {
+    (req: Request, res: Response) => {
         return res.status(200).send(res.locals.userInfo);
     }
 );
 
 userRouter.get('/token',
     cookieController.getTokenCookie,
-    (req, res) => {
+    (req: Request, res: Response) => {
         return res.status(200).send(res.locals.accessToken);
     }
 );
@@ -39,7 +40,7 @@ userRouter.get('/token',
 userRouter.post('/refresh',
     spotifyController.useRefreshToken,
     cookieController.setTokenCookie,
-    (req, res) => {
+    (req: Request, res: Response) => {
         return res.status(201).send(res.locals.accessToken);
     }
 );
@@ -47,9 +48,9 @@ userRouter.post('/refresh',
 userRouter.get('/logout',
     cookieController.deleteSSIDCookie,
     sessionController.deleteSession,
-    (req, res) => {
+    (req: Request, res: Response) => {
         return res.status(200).redirect('/');
     }
 )
 
-module.exports = userRouter;
+export default userRouter;

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import InfoIcon from '@mui/icons-material/Info';
@@ -19,11 +18,11 @@ const redirect_uri = `http://localhost:${PORT}/api/user/access`;
 const scope = 'user-read-playback-state app-remote-control user-modify-playback-state playlist-read-private user-follow-modify playlist-read-collaborative user-follow-read user-read-currently-playing user-read-playback-position user-library-modify playlist-modify-private playlist-modify-public user-read-email user-top-read streaming user-read-recently-played user-read-private user-library-read';
 const login_uri = `${code_endpoint}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=code&show_dialogue=true`;
 
-const Login = () => {
-  const [anchorEl, setAnchorEl] = useState();
+const Login: FC = () => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const handlePopoverOpen = e => setAnchorEl(e.currentTarget);
-  const handlePopoverClose = () => setAnchorEl();
+  const handlePopoverOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
+  const handlePopoverClose = () => setAnchorEl(null);
 
   const open = Boolean(anchorEl);
 

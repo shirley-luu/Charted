@@ -1,8 +1,10 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { FC, useState, useEffect } from 'react';
 
-const Discover = ({ userInfo, accessToken }) => {
+import { UserInfo } from '../../types/interfaces';
+
+const Discover: FC<{userInfo: UserInfo, accessToken: string}> = props => {
+  const { userInfo, accessToken } = props;
+
   return (
     <>
       <iframe

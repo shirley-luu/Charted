@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,9 +7,12 @@ import Input from '@mui/joy/Input';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 
+import { UserInfo } from '../../types/interfaces';
 import '../stylesheets/beatbooks.scss';
 
-const Beatbooks = ({ userInfo, accessToken }) => {
+const Beatbooks: FC<{userInfo: UserInfo, accessToken: string}> = props => {
+  const { userInfo, accessToken } = props;
+
   const [titleInput, setTitleInput] = useState('');
   const [authorInput, setAuthorInput] = useState('');
 
@@ -21,13 +23,13 @@ const Beatbooks = ({ userInfo, accessToken }) => {
     if (response.data) findBookCover(response.data.title, response.data.authors);
   }
 
-  const findBookCover = async (foundTitle, foundAuthors) => {
+  const findBookCover = async (foundTitle: string, foundAuthors: String[]) => {
     const response = await axios.post('/api/book/cover', { title: foundTitle, author: foundAuthors[0] });
     navigate('/beatbooks/recommendations', { state: { title: foundTitle, authors: foundAuthors, cover: response.data } });
   }
 
-  const handleTitleInput = e => setTitleInput(e.target.value);
-  const handleAuthorInput = e => setAuthorInput(e.target.value);
+  const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => setTitleInput(e.target.value);
+  const handleAuthorInput = (e: React.ChangeEvent<HTMLInputElement>) => setAuthorInput(e.target.value);
   const handleRecommendations = () => findBook();
 
   return (

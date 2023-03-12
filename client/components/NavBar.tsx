@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,18 +13,21 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
+import { UserInfo } from '../../types/interfaces';
 import logo from '../assets/logo.png';
 import '../stylesheets/navbar.scss';
 
 const pages = ['Wrapped', 'Discover', 'Beatbooks'];
 
-const NavBar = ({ userInfo }) => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+const NavBar: FC<{userInfo: UserInfo}> = props => {
+  const { userInfo } = props;
 
-  const handleOpenNavMenu = e => setAnchorElNav(e.currentTarget);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => setAnchorElNav(e.currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
-  const handleOpenUserMenu = e => setAnchorElUser(e.currentTarget);
+  const handleOpenUserMenu = (e: React.MouseEvent<HTMLElement>) => setAnchorElUser(e.currentTarget);
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
   return (

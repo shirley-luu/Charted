@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Stack from '@mui/material/Stack';
@@ -10,14 +9,17 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 
+import { UserInfo } from '../../types/interfaces';
 import '../stylesheets/wrapped.scss';
 
-const Wrapped = ({ userInfo, accessToken }) => {
+const Wrapped: FC<{userInfo: UserInfo, accessToken: string}> = props => {
+  const { userInfo, accessToken } = props;
+
   const [currentChip, setCurrentChip] = useState('tracks');
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
 
-  const handleChipChange = chip => setCurrentChip(chip);
+  const handleChipChange = (chip: string) => setCurrentChip(chip);
 
   const getTopArtists = async () => {
     const response = await axios.post('api/spotify/top/artists', { accessToken });
@@ -77,7 +79,7 @@ const Wrapped = ({ userInfo, accessToken }) => {
       </Stack>
       <ImageList sx={{ width: '100%', height: '90%', marginBottom: 'px' }} cols={4}>
         {currentChip === 'artists' ? (
-          topArtists.map(artist => (
+          topArtists.map((artist: any) => (
             <ImageListItem key={artist.name}>
               <img
                 className='top-artist-img'
@@ -88,12 +90,12 @@ const Wrapped = ({ userInfo, accessToken }) => {
               />
               <ImageListItemBar
                 title={artist.name}
-                subtitle={<span>Genres: {artist.genres.reduce((acc, genre, i) => i !== 0 ? acc += `, ${genre}` : acc += genre, '')}</span>}
+                subtitle={<span>Genres: {artist.genres.reduce((acc: string, genre: string, i: number) => i !== 0 ? acc += `, ${genre}` : acc += genre, '')}</span>}
                 position="below"
               />
             </ImageListItem>
           ))) : (
-            topTracks.map(track => (
+            topTracks.map((track: any) => (
               <ImageListItem key={track.name}>
                 <img
                   width={10}

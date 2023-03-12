@@ -4,3 +4,84 @@ build/*
 .DS_Store
 .env
 .vscode
+
+  const findBook = async () => {
+    const response = await axios.post('/api/book/info', { title: titleInput, author: authorInput });
+    if (response.data) findBookCover(response.data.title, response.data.authors, response.data.subjects);
+  }
+
+  const findBookCover = async (foundTitle, foundAuthors, foundSubjects) => {
+    const response = await axios.post('/api/book/cover', { title: foundTitle, author: foundAuthors[0] });
+    getSpotifyRecommendations(foundTitle, foundAuthors, foundSubjects, response.data);
+  }
+
+  const getSpotifyRecommendations = async (title, authors, subjects, cover) => {
+    const response = await axios.post('/api/spotify/recommendations/book', { accessToken, subjects });
+    console.log(response.data);
+    // navigate('/beatbooks/recommendations', { state: { title, authors, subjects, cover } });
+  }
+
+
+bookController.findBook = async (req, res, next) => {
+    const { title, author } = req.body;
+    const book_endpoint = `http://openlibrary.org/search.json?q=${title}+author:${author}`;
+    try {
+        const response = await axios(book_endpoint);
+        const book = response.data.docs[0];
+        if (!book) return res.status(200).send(false);
+        const filtered = book.subject.map((sub, i) => sub.split(' ')[0].toLowerCase()).filter((sub, i) => !sub.includes(','));
+        const set = new Set(filtered);
+        // console.log('set: ', set);
+        const subjects = [];
+        // set.forEach(word => {
+        //     if (franc(word) === 'eng') subjects.push(word);
+        // });
+        console.log('subjects: ', subjects);
+        const bookInfo = { title: book.title, authors: book.author_name, subjects: [...subjects] };
+        res.locals.bookInfo = bookInfo;
+        return next();
+    }
+    catch(err) {
+        return next({
+            log: `Error in bookController.findBook: ${err}`,
+            status: 500,
+            message: {err: 'Error occured while looking for book'},
+          });
+    }
+};
+
+
+spotifyController.getBookRecommendations = async (req, res, next) => {
+    const { accessToken, subjects } = req.body;
+    console.log(subjects);
+    let query = '';
+    subjects.forEach((subject, i) => i === 0 ? query += subject : query += ` ${subject}`);
+    console.log(query);
+    const api_endpoint = `https://api.spotify.com/v1/search?type=album&q=${query}`;
+    try {
+        const response = await axios.get(api_endpoint, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log(response.data);
+        res.locals.bookRecommendations = recommendations;
+        return next();
+    }
+    catch(err) {
+        return next({
+            log: `Error in spotifyController.getBookRecommendations: ${err}`,
+            status: 500,
+            message: {err: 'Error occured while retrieving album recommendations for book'},
+          });
+    }
+};
+
+
+spotifyRouter.post('/recommendations/book',
+    spotifyController.getBookRecommendations,
+    (req, res) => {
+        return res.status(201);
+    }
+);

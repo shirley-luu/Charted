@@ -1,20 +1,21 @@
-const express = require('express');
-const spotifyRouter = express.Router();
+import express, { Request, Response } from 'express';
 
-const spotifyController = require('../controllers/spotifyController');
+import spotifyController from '../controllers/spotifyController';
+
+const spotifyRouter = express.Router();
 
 spotifyRouter.post('/top/artists',
     spotifyController.getTopArtists,
-    (req, res) => {
+    (req: Request, res: Response) => {
         return res.status(201).send(res.locals.topArtists);
     }
 );
 
 spotifyRouter.post('/top/tracks',
     spotifyController.getTopTracks,
-    (req, res) => {
+    (req: Request, res: Response) => {
         return res.status(201).send(res.locals.topTracks);
     }
 );
 
-module.exports = spotifyRouter;
+export default spotifyRouter;
